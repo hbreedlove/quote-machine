@@ -1,0 +1,64 @@
+var quotes = [
+  [
+    "You know you’re in love when you can’t fall asleep because reality is finally better than your dreams."
+  ],
+  ["Get busy living or get busy dying."],
+  [
+    "The first step toward success is taken when you refuse to be a captive of the environment in which you first find yourself."
+  ],
+  [
+    "When one door of happiness closes, another opens; but often we look so long at the closed door that we do not see the one which has been opened for us."
+  ],
+  [
+    "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do."
+  ]
+];
+var authors = ["-Dr. Seuss", "-Stephen King", "-Mark Caine", "-Helen Keller", "-Mark Twain"]
+
+class Generator extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: "",
+      author: "",
+      randomIndex: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange() {
+    this.setState({
+      randomIndex: Math.floor(Math.random() * quotes.length),
+      message: "",
+      author: ""
+    });
+  
+  }
+  componentDidMount() {
+     this.setState({
+      randomIndex: Math.floor(Math.random() * quotes.length),
+      message: "",
+      author: ""
+    });
+    
+  }
+  render() {
+    const answer1 = quotes[this.state.randomIndex];
+    const answer2 = authors[this.state.randomIndex];
+    return (
+      <div>
+        <div className="quote-wrap">
+          <p id="text"><i className="fas fa-quote-left"></i><span id="text"></span> {answer1}</p>
+        <p id="author">{answer2}</p>
+        </div>
+        <div className="button-wrap">
+        <button className="button btn2" id="tweet-quote"><i class="fab fa-twitter"></i><a className="tweet-this" href="twitter.com/intent/tweet">Tweet this!</a></button>
+          <button className="button btn1" id="new-quote" onClick={this.handleChange}>
+          New Quote!
+        </button>
+        </div>
+      </div>
+    );
+  }
+}
+ReactDOM.render(<Generator />, document.getElementById("quote-box"));
